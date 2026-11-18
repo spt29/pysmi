@@ -1250,6 +1250,18 @@ class DefaultStringTestCase(unittest.TestCase):
     def testStringDefvalEmptySyntax(self):
         self.assertEqual(self.ctx["testObjectTypeEmpty"].getSyntax(), b"", "bad DEFVAL")
 
+    def testStringDefvalPrettyPrint(self):
+        self.assertEqual(
+            self.ctx["testObjectType"].getSyntax().prettyPrint(),
+            "test value",
+            "bad DEFVAL",
+        )
+
+    def testStringDefvalEmptyPrettyPrint(self):
+        self.assertEqual(
+            self.ctx["testObjectTypeEmpty"].getSyntax().prettyPrint(), "", "bad DEFVAL"
+        )
+
 
 class DefaultStringTextTestCase(unittest.TestCase):
     R"""
@@ -1287,6 +1299,13 @@ class DefaultStringTextTestCase(unittest.TestCase):
         self.assertEqual(
             self.ctx["testObjectType"].getSyntax(),
             b"\\ntest\nvalue\\",
+            "bad DEFVAL",
+        )
+
+    def testStringDefvalTextStr(self):
+        self.assertEqual(
+            str(self.ctx["testObjectType"].getSyntax()),
+            "\\ntest\nvalue\\",
             "bad DEFVAL",
         )
 

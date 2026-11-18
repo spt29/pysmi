@@ -179,8 +179,8 @@ if mibBuilder.loadTexts:
     {% elif definition['default']['default']['format'] == 'hex' %}
     defaultHexValue = "{{ definition['default']['default']['value'] }}"
     {% elif definition['default']['default']['format'] == 'string' %}
-    {# TODO: pyasn1 does not like defaulted strings #}
-    defaultValue = OctetString({{ definition['default']['default']['value']|pythonstr }})
+    {# pyasn1 takes defaultValue as payload as is, so it must be bytes #}
+    defaultValue = OctetString({{ definition['default']['default']['value']|pythonstr }}).asOctets()
     {% elif definition['default']['default']['format'] == 'oid' %}
     defaultValue = {{ definition['default']['default']['value'] }}
     {% elif definition['default']['default']['format'] == 'bits' %}
